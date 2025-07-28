@@ -96,13 +96,22 @@ public class Mole : MonoBehaviour {
   public void Hide() {
         // Set the appropriate mole parameters to hide it.
         transform.localPosition = startPosition;
-        boxCollider2D.offset = boxOffsetHidden;
-        boxCollider2D.size = boxSizeHidden;
-        transform.GetChild(0).gameObject.SetActive(false);
-        wordImage.SetActive(true);
-        rightImage.SetActive(false);
-        wrongImage.SetActive(true);
-  }
+        if (boxCollider2D != null)
+        {
+            boxCollider2D.offset = boxOffsetHidden;
+            boxCollider2D.size = boxSizeHidden;
+        }
+
+        if (transform.GetChild(0) != null)
+            transform.GetChild(0).gameObject.SetActive(false);
+        if (wordImage != null)
+            wordImage.SetActive(true);
+        if (rightImage != null)
+            rightImage.SetActive(false);
+        if (wrongImage != null)
+            wrongImage.SetActive(true);
+
+    }
 
   private IEnumerator QuickHide() {
     yield return new WaitForSeconds(0.25f);

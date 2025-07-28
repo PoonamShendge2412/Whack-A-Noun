@@ -40,10 +40,10 @@ public class GameManager : MonoBehaviour
       private HashSet<Mole> currentMoles = new HashSet<Mole>();
       private int score;
       private bool playing = false;
-      public static GameManager Instance;
+
     private void Awake()
     {
-        Instance = this;
+
         WordData data = JsonUtility.FromJson<WordData>(jsonFile.text);
         wordList = data.entries;
         StartGame();
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
 
         // Hide all the visible moles.
         for (int i = 0; i < moles.Count; i++) {
+
           moles[i].Hide();
           moles[i].SetIndex(i);
         }
