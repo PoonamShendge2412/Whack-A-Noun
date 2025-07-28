@@ -98,10 +98,10 @@ public class Mole : MonoBehaviour {
         transform.localPosition = startPosition;
         boxCollider2D.offset = boxOffsetHidden;
         boxCollider2D.size = boxSizeHidden;
-        transform.GetChild(0).gameObject.SetActive(false);
+
         wordImage.SetActive(true);
         rightImage.SetActive(false);
-        wrongImage.SetActive(false);
+        wrongImage.SetActive(true);
   }
 
   private IEnumerator QuickHide() {
