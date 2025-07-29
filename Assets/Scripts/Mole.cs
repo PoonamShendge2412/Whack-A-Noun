@@ -43,12 +43,9 @@ public class Mole : MonoBehaviour {
     private IEnumerator ShowHide(Vector2 start, Vector2 end) {
     // Make sure we start at the start.
     transform.localPosition = start;
-        wordImage.SetActive(false);
-        rightImage.SetActive(false);
-        wrongImage.SetActive(false);
-        //transform.parent.GetComponent<Animator>().Play("TextAnim");
-        // Show the mole.
-        float elapsed = 0f;
+    //transform.parent.GetComponent<Animator>().Play("TextAnim");
+    // Show the mole.
+    float elapsed = 0f;
     while (elapsed < showDuration) {
       transform.localPosition = Vector2.Lerp(start, end, elapsed / showDuration);
       boxCollider2D.offset = Vector2.Lerp(boxOffsetHidden, boxOffset, elapsed / showDuration);

@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
       private HashSet<Mole> currentMoles = new HashSet<Mole>();
       private int score;
       private bool playing = false;
-
+      int lastIndex = -1; // store this outside the method (e.g. as a class-level variable)
     private void Awake()
     {
 
@@ -122,16 +122,22 @@ public class GameManager : MonoBehaviour
               // Check if we need to start any more moles.
               if (currentMoles.Count <= (score / 10)) 
               {
-                  // Choose a random mole.
-                  int index = Random.Range(0, moles.Count);
-                  // Doesn't matter if it's already doing something, we'll just try again next frame.
-                  if (!currentMoles.Contains(moles[index])) 
-                  {
-                      currentMoles.Add(moles[index]);
-                      moles[index].Activate(score / 10);
-                      moles[index].SetWord(GetRandomWord());
-                  }
-              }
+                    // Choose a random mole.
+                    int index;
+                    do
+                    {
+                        index = Random.Range(0, moles.Count);
+                    } while (index == lastIndex && moles.Count > 1); // avoid repeat only if more than 1
+
+                    lastIndex = index;
+
+                    if (!currentMoles.Contains(moles[index]))
+                    {
+                        currentMoles.Add(moles[index]);
+                        moles[index].Activate(score / 10);
+                        moles[index].SetWord(GetRandomWord());
+                    }
+            }
         }
   }
 
@@ -141,7 +147,7 @@ public class GameManager : MonoBehaviour
         score += scoreValue;
         scoreText.text = $"{score}";
         // Increase time by a little bit.
-        timeRemaining += 1;
+       // timeRemaining += 1;
         // Remove from active moles.
         currentMoles.Remove(moles[moleIndex]);
   }
@@ -149,8 +155,8 @@ public class GameManager : MonoBehaviour
   public void Missed(int moleIndex, bool isMole) 
   {
       if (isMole) {
-        // Decrease time by a little bit.
-          timeRemaining -= 2;
+          // Decrease time by a little bit.
+          //timeRemaining -= 2;
       }
       // Remove from active moles.
       currentMoles.Remove(moles[moleIndex]);
